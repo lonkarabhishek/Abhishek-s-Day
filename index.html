@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek's Day</title>
+    <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
+    <!-- Replace with your icon URL -->
+    <style>
+        /* Basic Reset */
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        /* Main Body Styling */
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        /* Heading */
+        
+        h1 {
+            font-size: 2em;
+            color: #FC4422;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        /* Motivational Quote */
+        
+        .quote {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        /* Input Container Styling */
+        
+        .input-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        #taskInput,
+        #timeInput,
+        #categoryInput,
+        #addTaskBtn {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        #taskInput {
+            flex: 2;
+        }
+        
+        #timeInput,
+        #categoryInput {
+            flex: 1;
+        }
+        
+        #taskInput:focus,
+        #timeInput:focus,
+        #categoryInput:focus {
+            outline: none;
+            border-color: #FC4422;
+        }
+        
+        #addTaskBtn {
+            color: white;
+            background: #FC4422;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            flex: 1;
+        }
+        
+        #addTaskBtn:hover {
+            background: #D73A1E;
+        }
+        /* Task List Container */
+        
+        .task-container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+        /* Responsive Task Columns */
+        
+        .task-column {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* Column Headings */
+        
+        .task-column h2 {
+            text-align: center;
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        /* Task List Styling */
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        .task span {
+            flex: 1;
+            font-size: 1em;
+        }
+        
+        .completed span {
+            text-decoration: line-through;
+            color: gray;
+        }
+        
+        .edit-btn {
+            background: #FC4422;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+            margin-left: 5px;
+        }
+        
+        .edit-btn:hover {
+            background: #D73A1E;
+        }
+        
+        .delete-btn {
+            font-size: 1.5em;
+            color: #FC4422;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            color: #D73A1E;
+        }
+        /* Animation */
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Mobile Responsive Design */
+        
+        @media (max-width: 768px) {
+            .task-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .input-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="dateTitle"></h1>
+    <div class="quote">"Pain of discipline or pain of regret – you decide."</div>
+
+    <div class="input-container">
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <input type="time" id="timeInput" value="12:00">
+        <select id="categoryInput">
+            <option value="Personal">Personal</option>
+            <option value="Work">Work</option>
+        </select>
+        <button id="addTaskBtn">Add Task</button>
+    </div>
+
+    <div class="task-container">
+        <div class="task-column" id="personalTasks">
+            <h2>Personal Tasks</h2>
+            <ul id="personalTaskList"></ul>
+        </div>
+        <div class="task-column" id="workTasks">
+            <h2>Work Tasks</h2>
+            <ul id="workTaskList"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Set dynamic date and title
+        document.getElementById('dateTitle').textContent = new Date().toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short'
+        }) + " - Abhishek's Day";
+
+        // Load tasks from localStorage and render in respective columns
+        function loadTasks() {
+            document.getElementById('personalTaskList').innerHTML = '';
+            document.getElementById('workTaskList').innerHTML = '';
+
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach((task, index) => {
+                const taskItem = document.createElement('li');
+                taskItem.classList.add('task');
+                if (task.completed) taskItem.classList.add('completed');
+
+                taskItem.innerHTML = `
+                    <span>${task.name} <em>by ${task.time || 'anytime'}</em></span>
+                    <div>
+                        <button class="edit-btn" onclick="editTask(${index})">Edit</button>
+                        <button class="delete-btn" onclick="deleteTask(${index})">&times;</button>
+                    </div>
+                `;
+
+                if (task.category === 'Personal') {
+                    document.getElementById('personalTaskList').appendChild(taskItem);
+                } else {
+                    document.getElementById('workTaskList').appendChild(taskItem);
+                }
+            });
+        }
+
+        // Add new task to localStorage and refresh
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const timeInput = document.getElementById('timeInput');
+            const categoryInput = document.getElementById('categoryInput');
+
+            if (!taskInput.value.trim()) return alert("Task cannot be empty");
+
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push({
+                name: taskInput.value.trim(),
+                time: timeInput.value,
+                category: categoryInput.value,
+                completed: false
+            });
+
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            taskInput.value = '';
+            timeInput.value = '12:00';
+            loadTasks();
+        }
+
+        // Edit task title and time
+        function editTask(index) {
+            const tasks = JSON.parse(localStorage.getItem('tasks'));
+            const task = tasks[index];
+
+            const newTitle = prompt("Edit Task Title:", task.name);
+            const newTime = prompt("Edit Time (HH:MM):", task.time || "12:00");
+
+            if (newTitle !== null && newTime !== null) {
+                task.name = newTitle;
+                task.time = newTime;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                loadTasks();
+            }
+        }
+
+        // Toggle task completion
+        function toggleTask(index) {
+            const tasks = JSON.parse(localStorage.getItem('tasks'));
+            tasks[index].completed = !tasks[index].completed;
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            loadTasks();
+        }
+
+        // Delete a task
+        function deleteTask(index) {
+            const tasks = JSON.parse(localStorage.getItem('tasks'));
+            tasks.splice(index, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            loadTasks();
+        }
+
+        // Event listeners
+        document.getElementById('addTaskBtn').addEventListener('click', addTask);
+        document.getElementById('taskInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // Load tasks on page load
+        loadTasks();
+    </script>
+</body>
+
+</html>
