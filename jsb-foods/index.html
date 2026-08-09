@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F5C518" />
+  <title>JSB Foods — माKhana. Something is popping.</title>
+  <meta name="description" content="JSB Foods brings you माKhana — premium roasted foxnuts from the heart of Mithila. Something is popping." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="JSB Foods — माKhana" />
+  <meta property="og:description" content="Premium roasted foxnuts from Mithila. Something is popping." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jsbfoods.in" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23F5C518'/%3E%3Ctext x='50' y='68' font-family='serif' font-size='58' font-weight='700' text-anchor='middle' fill='%23fff'%3Ej%3C/text%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="bg-cream text-ink">
+  <!-- Cursor blob -->
+  <div class="cursor-blob" aria-hidden="true"></div>
+
+  <!-- Progress bar -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <header class="site-nav">
+    <a class="brand" href="#top" aria-label="JSB Foods home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="34" height="34"><circle cx="50" cy="50" r="48" fill="#F5C518"/><text x="50" y="70" font-family="Fraunces, serif" font-size="56" font-weight="800" text-anchor="middle" fill="#fff">j</text></svg>
+      </span>
+      <span class="brand-word">JSB <em>Foods</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#product">माKhana</a>
+      <a href="#why">Why</a>
+      <a href="#origin">Origin</a>
+      <a href="#contact" class="pill">Get Notified</a>
+    </nav>
+  </header>
+
+  <!-- HERO STORY — scroll-controlled image sequence -->
+  <section id="top" class="hero-story" data-story>
+    <div class="hero-story__sticky">
+      <canvas class="hero-story__canvas" aria-hidden="true"></canvas>
+
+      <noscript>
+        <img src="./public/sequence/makhana/frame-120.webp" alt="Roasted makhana" class="hero-story__fallback" />
+      </noscript>
+
+      <!-- Overlay text — each caption fades in around a scroll range -->
+      <div class="hero-story__captions" aria-hidden="true">
+        <p class="cap cap-inverse" data-cap-in="0.02" data-cap-out="0.18">A single seed.</p>
+        <p class="cap cap-inverse" data-cap-in="0.22" data-cap-out="0.42">From the ponds of <em>Mithila</em>.</p>
+        <p class="cap cap-inverse" data-cap-in="0.46" data-cap-out="0.62">A little heat. A lot of heritage.</p>
+        <p class="cap cap-pop"     data-cap-in="0.66" data-cap-out="0.78"><em>POP.</em></p>
+        <p class="cap cap-final"   data-cap-in="0.84" data-cap-out="1.05">From a tiny seed<br/>to your favourite <em>crunch</em>.</p>
+      </div>
+
+      <!-- Accessible headline for SEO / screen readers (visually hidden) -->
+      <h1 class="visually-hidden">
+        JSB Foods माKhana — from a tiny seed to your favourite crunch.
+      </h1>
+
+      <div class="hero-story__cue" aria-hidden="true">
+        <span></span><p>scroll to pop</p>
+      </div>
+
+      <!-- Loading indicator until enough priority frames are ready -->
+      <div class="hero-story__loading" data-loading>
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Handoff strip — bridges the pinned sequence into the DOM sections -->
+  <section class="hero-handoff">
+    <p class="eyebrow" data-reveal>The debut</p>
+    <h2 data-reveal>Meet <span class="brand-devanagari">माKhana</span>.</h2>
+    <div class="hero-handoff__ctas" data-reveal>
+      <a href="#product" class="btn btn-primary">See the pack <span class="arrow">↓</span></a>
+      <a href="https://instagram.com/jsbfoods" target="_blank" rel="noopener" class="btn btn-ghost">Follow @jsbfoods</a>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="marquee-wrap" aria-hidden="true">
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>ROASTED, NOT FRIED</span><span aria-hidden="true">✿</span>
+        <span>MADE IN MITHILA</span><span aria-hidden="true">✿</span>
+        <span>0g TRANS FAT</span><span aria-hidden="true">✿</span>
+        <span>HIGH PROTEIN</span><span aria-hidden="true">✿</span>
+        <span>GLUTEN FREE</span><span aria-hidden="true">✿</span>
+        <span>GUILT FREE MUNCHING</span><span aria-hidden="true">✿</span>
+        <span>ROASTED, NOT FRIED</span><span aria-hidden="true">✿</span>
+        <span>MADE IN MITHILA</span><span aria-hidden="true">✿</span>
+        <span>0g TRANS FAT</span><span aria-hidden="true">✿</span>
+        <span>HIGH PROTEIN</span><span aria-hidden="true">✿</span>
+        <span>GLUTEN FREE</span><span aria-hidden="true">✿</span>
+        <span>GUILT FREE MUNCHING</span><span aria-hidden="true">✿</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT REVEAL -->
+  <section id="product" class="product-section">
+    <div class="product-grid">
+      <div class="product-copy">
+        <p class="eyebrow" data-reveal>Inside the pack</p>
+        <h2 data-reveal>Roasted, seasoned, <em>sealed</em>.</h2>
+        <p class="lede" data-reveal>
+          Hand-picked lotus seeds, roasted low-and-slow until they puff into
+          clouds. Seasoned by grandmothers, packed by us, addictive by design.
+        </p>
+        <ul class="feature-list">
+          <li data-reveal><span>01</span> Roasted, never fried</li>
+          <li data-reveal><span>02</span> Straight from Mithila's makhana belt</li>
+          <li data-reveal><span>03</span> Under 100 kcal a handful</li>
+          <li data-reveal><span>04</span> Zero preservatives. Zero drama.</li>
+        </ul>
+      </div>
+
+      <div class="product-visual" data-reveal>
+        <div class="product-stage">
+          <div class="product-shadow"></div>
+          <!-- Illustrated pouch -->
+          <svg viewBox="0 0 320 460" class="pouch" role="img" aria-label="माKhana pouch">
+            <defs>
+              <linearGradient id="pouchG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fffaf0"/>
+                <stop offset="100%" stop-color="#f2e4c1"/>
+              </linearGradient>
+              <linearGradient id="pouchTop" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2a1d14"/>
+                <stop offset="100%" stop-color="#3d2a1c"/>
+              </linearGradient>
+            </defs>
+            <!-- body -->
+            <path d="M40 100 Q40 80 60 78 L260 78 Q280 80 280 100 L288 420 Q288 440 268 442 L52 442 Q32 440 32 420 Z" fill="url(#pouchG)" stroke="#e6d3a3" stroke-width="1.5"/>
+            <!-- crimped top -->
+            <path d="M32 90 L288 90 L280 60 Q160 40 40 60 Z" fill="url(#pouchTop)"/>
+            <path d="M40 60 Q160 44 280 60" stroke="#F5C518" stroke-width="2" fill="none" opacity=".9"/>
+            <!-- brand devanagari -->
+            <text x="160" y="180" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="52" fill="#2a1d14">माKhana</text>
+            <text x="160" y="210" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="700" font-size="12" letter-spacing="4" fill="#8a6a1a">ROASTED FOXNUTS</text>
+            <!-- illustration circle -->
+            <circle cx="160" cy="300" r="70" fill="#fff8e6" stroke="#e6d3a3" stroke-width="1"/>
+            <!-- makhanas in bowl -->
+            <g>
+              <circle cx="140" cy="300" r="18" fill="#fff" stroke="#e6d3a3"/>
+              <circle cx="175" cy="295" r="20" fill="#fffdf5" stroke="#e6d3a3"/>
+              <circle cx="160" cy="320" r="16" fill="#fff5dc" stroke="#e6d3a3"/>
+              <circle cx="128" cy="322" r="12" fill="#fff" stroke="#e6d3a3"/>
+              <circle cx="188" cy="322" r="13" fill="#fff" stroke="#e6d3a3"/>
+            </g>
+            <!-- footer -->
+            <text x="160" y="410" text-anchor="middle" font-family="Manrope, sans-serif" font-size="11" letter-spacing="3" fill="#5a3f22">50g · NET WT.</text>
+            <!-- jsb badge -->
+            <circle cx="260" cy="140" r="26" fill="#F5C518"/>
+            <text x="260" y="152" text-anchor="middle" font-family="Fraunces, serif" font-weight="800" font-size="26" fill="#fff">jsb</text>
+          </svg>
+
+          <!-- floating makhana around -->
+          <span class="orbit orbit-1"></span>
+          <span class="orbit orbit-2"></span>
+          <span class="orbit orbit-3"></span>
+          <span class="orbit orbit-4"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" class="why-section">
+    <div class="why-head">
+      <p class="eyebrow" data-reveal>Why makhana</p>
+      <h2 data-reveal>Ancient snack. <br/><em>Modern obsession.</em></h2>
+    </div>
+
+    <div class="why-grid">
+      <article class="why-card" data-reveal>
+        <div class="why-num">01</div>
+        <h3>Fewer calories, more chill</h3>
+        <p>A handful is under 100 kcal. Munch through Netflix without the guilt hangover.</p>
+      </article>
+      <article class="why-card" data-reveal>
+        <div class="why-num">02</div>
+        <h3>Plant protein &amp; calcium</h3>
+        <p>Real nutrition from real seeds — not lab-engineered puffs pretending to be healthy.</p>
+      </article>
+      <article class="why-card" data-reveal>
+        <div class="why-num">03</div>
+        <h3>Roasted, never fried</h3>
+        <p>Slow-roasted in small batches so every piece stays airy, crunchy, honest.</p>
+      </article>
+      <article class="why-card" data-reveal>
+        <div class="why-num">04</div>
+        <h3>Gluten-free by nature</h3>
+        <p>No wheat, no dairy, no shortcuts. Just the lotus seed doing what it does best.</p>
+      </article>
+      <article class="why-card" data-reveal>
+        <div class="why-num">05</div>
+        <h3>Kid-approved</h3>
+        <p>Chotus love it. Elders bless it. Your dietician emails you thank-you notes.</p>
+      </article>
+      <article class="why-card" data-reveal>
+        <div class="why-num">06</div>
+        <h3>Zero preservatives</h3>
+        <p>What goes in is what you'd stock in your own kitchen. Nothing you can't pronounce.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ORIGIN — parallax story -->
+  <section id="origin" class="origin-section">
+    <div class="origin-parallax" data-parallax-container>
+      <div class="origin-layer origin-sky" data-parallax="0.1"></div>
+      <div class="origin-layer origin-hills" data-parallax="0.3"></div>
+      <div class="origin-layer origin-temple" data-parallax="0.5"></div>
+      <div class="origin-layer origin-fore" data-parallax="0.7"></div>
+    </div>
+
+    <div class="origin-copy">
+      <p class="eyebrow" data-reveal>The origin</p>
+      <h2 data-reveal>From <em>Mithila</em> <br/>to your munchies.</h2>
+      <p data-reveal>
+        Bihar grows 90% of the world's makhana. We grew up on it — in steel
+        tiffins, on temple prasad plates, tossed with ghee by our nanis.
+      </p>
+      <p data-reveal>
+        JSB Foods began because the world was ready for the snack our
+        grandmothers had been quietly perfecting for centuries.
+      </p>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="how-section">
+    <div class="how-head">
+      <p class="eyebrow" data-reveal>How it's made</p>
+      <h2 data-reveal>From pond<br/>to pouch.</h2>
+    </div>
+    <ol class="how-steps">
+      <li data-reveal><span class="how-num">01</span><h4>Harvest</h4><p>Lotus pods gathered by hand from Mithila's ancient ponds.</p></li>
+      <li data-reveal><span class="how-num">02</span><h4>Sun-dry</h4><p>Seeds sun-dried for days to lock in flavour and nutrition.</p></li>
+      <li data-reveal><span class="how-num">03</span><h4>Roast &amp; pop</h4><p>Small-batch roasted at low heat till each seed puffs into a cloud.</p></li>
+      <li data-reveal><span class="how-num">04</span><h4>Season &amp; pack</h4><p>Kissed with heritage spices. Sealed fresh. Ready to travel to you.</p></li>
+    </ol>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="contact-inner">
+      <p class="eyebrow" data-reveal>Coming soon</p>
+      <h2 data-reveal>Be the first to <em>pop</em> a bag.</h2>
+      <p class="lede" data-reveal>माKhana drops soon. Drop your email — we'll ping you the second they're ready to ship.</p>
+
+      <form class="contact-form" data-reveal onsubmit="return handleSubscribe(event)">
+        <input type="email" required placeholder="your@email.com" aria-label="Your email" />
+        <button type="submit" class="btn btn-primary">Notify me <span class="arrow">→</span></button>
+      </form>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+
+      <div class="socials" data-reveal>
+        <a href="https://instagram.com/jsbfoods" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.05.41 2.22.06 1.25.07 1.63.07 4.82s0 3.57-.07 4.82c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.05.36-2.22.41-1.25.06-1.63.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.22-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.05-.41-2.22C2.21 15.57 2.2 15.19 2.2 12s0-3.57.07-4.82c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.05-.36 2.22-.41C8.4 2.21 8.78 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1 .05-1.55.22-1.91.36-.48.19-.83.41-1.19.77-.36.36-.58.71-.77 1.19-.14.36-.31.9-.36 1.91-.06 1.24-.07 1.6-.07 4.72s.01 3.48.07 4.72c.05 1 .22 1.55.36 1.91.19.48.41.83.77 1.19.36.36.71.58 1.19.77.36.14.9.31 1.91.36 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1-.05 1.55-.22 1.91-.36.48-.19.83-.41 1.19-.77.36-.36.58-.71.77-1.19.14-.36.31-.9.36-1.91.06-1.24.07-1.6.07-4.72s-.01-3.48-.07-4.72c-.05-1-.22-1.55-.36-1.91a3.2 3.2 0 0 0-.77-1.19 3.2 3.2 0 0 0-1.19-.77c-.36-.14-.9-.31-1.91-.36-1.24-.06-1.6-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 1.98a2.47 2.47 0 1 0 0 4.94 2.47 2.47 0 0 0 0-4.94Zm4.68-2.13a1.04 1.04 0 1 1 0 2.08 1.04 1.04 0 0 1 0-2.08Z"/></svg>
+          <span>@jsbfoods</span>
+        </a>
+        <a href="mailto:hello@jsbfoods.in" aria-label="Email">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+          <span>hello@jsbfoods.in</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <svg viewBox="0 0 100 100" width="28" height="28"><circle cx="50" cy="50" r="48" fill="#F5C518"/><text x="50" y="70" font-family="Fraunces, serif" font-size="56" font-weight="800" text-anchor="middle" fill="#fff">j</text></svg>
+        <span>JSB Foods</span>
+      </div>
+      <p>© <span id="year"></span> JSB Foods · Roasted with love in Mithila, Bihar</p>
+      <p class="foot-fine">माKhana is a JSB Foods brand · All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="./vendor/gsap.min.js"></script>
+  <script src="./vendor/ScrollTrigger.min.js"></script>
+  <script src="./vendor/lenis.min.js"></script>
+  <script src="./image-sequence.js"></script>
+  <script src="./script.js" defer></script>
+</body>
+</html>
