@@ -111,63 +111,35 @@ h4 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom
   .cursor-blob { opacity: .7; }
 }
 
-/* ---------- HERO ---------- */
+/* ---------- HERO STORY (scroll-controlled canvas sequence) ---------- */
 
-.hero {
+.hero-story {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 24px 60px;
+  /* Pin length: 5 viewports of scroll to scrub through 120 frames.
+     ~4vh per frame — smooth on desktop, still responsive on mobile. */
+  height: 500vh;
+  background: #0e0806; /* matches first frame; avoids flash before canvas paints */
+}
+.hero-story__sticky {
+  position: sticky; top: 0;
+  height: 100vh;
+  width: 100%;
   overflow: hidden;
   isolation: isolate;
+  background: #0e0806;
 }
-.hero-bg {
-  position: absolute; inset: 0; z-index: -1;
-  background:
-    radial-gradient(ellipse 60% 50% at 50% 30%, rgba(245,197,24,.35), transparent 60%),
-    radial-gradient(ellipse 80% 60% at 50% 90%, rgba(245,197,24,.2), transparent 70%),
-    linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
-}
-.hero-glow {
-  position: absolute; inset: 20% 20% 40% 20%;
-  background: radial-gradient(circle, rgba(245,197,24,.5), transparent 60%);
-  filter: blur(80px); opacity: .6;
-  animation: pulse 8s ease-in-out infinite;
-}
-.hero-grain {
+.hero-story__canvas {
   position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.13 0 0 0 0 0.09 0 0 0 0 0.06 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: .35; mix-blend-mode: multiply;
+  width: 100%; height: 100%;
+  display: block;
 }
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: .5; }
-  50% { transform: scale(1.15); opacity: .75; }
+.hero-story__fallback {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
 }
 
-.hero-inner {
-  max-width: 1100px; width: 100%; text-align: center;
-  position: relative; z-index: 2;
-}
-.hero-title {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: clamp(64px, 12vw, 180px);
-  line-height: 0.94;
-  letter-spacing: -0.04em;
-  color: var(--ink);
-}
-.hero-title .line { display: block; overflow: hidden; }
-.hero-title em { color: var(--sun-deep); }
-
-.hero-sub {
-  margin: 26px auto 0;
-  max-width: 560px;
-  font-size: clamp(15px, 1.4vw, 18px);
-  color: var(--mut);
-}
-.hero-cta { margin-top: 36px; display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+/* Buttons live here too so the handoff strip has them */
 .btn {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 14px 26px; border-radius: 999px;
@@ -183,40 +155,106 @@ h4 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom
 .btn-ghost { color: var(--ink); border-color: var(--ink); }
 .btn-ghost:hover { background: var(--ink); color: var(--cream); transform: translateY(-2px); }
 
-.scroll-cue {
-  position: absolute; bottom: -8vh; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: var(--mut); font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+/* Captions overlay */
+.hero-story__captions {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 24px;
+  pointer-events: none;
 }
-.scroll-cue span {
-  display: block; width: 1px; height: 60px;
-  background: linear-gradient(180deg, transparent, var(--ink) 100%);
+.cap {
+  position: absolute;
+  max-width: min(880px, 90vw);
+  text-align: center;
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  will-change: opacity, transform;
+  transform: translateY(20px);
+}
+.cap em { font-style: italic; }
+
+.cap-inverse {
+  color: rgba(251, 243, 223, 0.94);
+  font-size: clamp(34px, 5.4vw, 76px);
+  text-shadow: 0 4px 40px rgba(0,0,0,.5);
+}
+.cap-pop {
+  color: #ffe6a8;
+  font-size: clamp(88px, 16vw, 220px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-shadow: 0 0 60px rgba(255, 190, 80, 0.6), 0 8px 40px rgba(0,0,0,.4);
+}
+.cap-final {
+  color: var(--ink);
+  font-size: clamp(38px, 6.2vw, 88px);
+  line-height: 1.02;
+}
+.cap-final em { color: var(--sun-deep); font-style: italic; }
+
+/* Scroll cue (fades out after user starts scrubbing) */
+.hero-story__cue {
+  position: absolute; bottom: 30px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(251,243,223,.6);
+  font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  transition: opacity .5s;
+}
+.hero-story__cue span {
+  display: block; width: 1px; height: 50px;
+  background: linear-gradient(180deg, transparent, rgba(251,243,223,.8) 100%);
   animation: cue 2s ease-in-out infinite;
   transform-origin: top;
 }
+.hero-story__cue.is-hidden { opacity: 0; }
 @keyframes cue { 0%,100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
 
-/* floating makhana in hero */
-.hero-float { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.mk {
-  position: absolute; display: block;
-  width: 32px; height: 32px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff 0%, #f6ecd2 60%, #d8c69a 100%);
-  box-shadow: inset -3px -6px 8px rgba(0,0,0,.05), 0 8px 16px -6px rgba(34,22,16,.3);
-  animation: float 12s ease-in-out infinite;
+/* Loading indicator (three dots) */
+.hero-story__loading {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; gap: 8px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
 }
-.mk-1 { top: 15%; left: 10%; width: 42px; height: 42px; animation-delay: 0s; }
-.mk-2 { top: 25%; right: 12%; width: 28px; height: 28px; animation-delay: -2s; }
-.mk-3 { top: 60%; left: 15%; width: 36px; height: 36px; animation-delay: -4s; }
-.mk-4 { top: 70%; right: 18%; width: 24px; height: 24px; animation-delay: -6s; }
-.mk-5 { top: 40%; left: 6%;  width: 22px; height: 22px; animation-delay: -3s; }
-.mk-6 { top: 45%; right: 8%; width: 34px; height: 34px; animation-delay: -5s; }
+.hero-story__loading.is-visible { opacity: 1; }
+.hero-story__loading span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(251,243,223,.7);
+  animation: loading-pulse 1s ease-in-out infinite;
+}
+.hero-story__loading span:nth-child(2) { animation-delay: .15s; }
+.hero-story__loading span:nth-child(3) { animation-delay: .3s; }
+@keyframes loading-pulse {
+  0%, 80%, 100% { opacity: .3; transform: scale(.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
 
-@keyframes float {
-  0%, 100% { transform: translate(0,0) rotate(0deg); }
-  25% { transform: translate(15px, -20px) rotate(45deg); }
-  50% { transform: translate(-10px, -35px) rotate(-30deg); }
-  75% { transform: translate(20px, -10px) rotate(20deg); }
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ---------- HERO HANDOFF strip (dom animations resume) ---------- */
+.hero-handoff {
+  padding: clamp(60px, 10vw, 120px) 24px clamp(40px, 6vw, 80px);
+  background: var(--cream);
+  text-align: center;
+}
+.hero-handoff .eyebrow { margin-bottom: 14px; }
+.hero-handoff h2 {
+  margin: 0 auto;
+  max-width: 900px;
+}
+.hero-handoff__ctas {
+  margin-top: 40px;
+  display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center;
 }
 
 /* ---------- MARQUEE ---------- */
@@ -239,73 +277,6 @@ h4 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-
-/* ---------- POP SECTION (sticky scrollytell) ---------- */
-
-.pop-section {
-  position: relative;
-  height: 320vh; /* scroll length for the pin */
-  background: linear-gradient(180deg, var(--cream) 0%, #eadfb6 50%, var(--cream) 100%);
-}
-.pop-sticky {
-  position: sticky; top: 0;
-  height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-}
-.pop-stage {
-  position: relative;
-  width: min(560px, 88vw); height: min(560px, 88vw);
-  display: flex; align-items: center; justify-content: center;
-}
-.seed, .pop-makhana {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  width: 46%; height: auto;
-  will-change: transform, opacity, filter;
-}
-.pop-makhana { opacity: 0; transform: translate(-50%, -50%) scale(0.4); width: 60%; }
-
-.heat {
-  position: absolute; bottom: 8%; left: 50%;
-  transform: translateX(-50%);
-  width: 70%; height: auto;
-  opacity: 0;
-}
-.heat-line {
-  stroke-dasharray: 3 6;
-  animation: heatDance 2s linear infinite;
-}
-@keyframes heatDance {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -18; }
-}
-
-.burst { position: absolute; inset: 0; pointer-events: none; }
-.burst span {
-  position: absolute; top: 50%; left: 50%;
-  width: 22px; height: 22px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff 0%, #f6ecd2 60%, #d8c69a 100%);
-  box-shadow: 0 4px 10px -4px rgba(34,22,16,.4);
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-}
-
-.pop-caption {
-  position: absolute; bottom: 8%; left: 50%;
-  transform: translateX(-50%);
-  width: 92%; text-align: center;
-  min-height: 60px;
-  pointer-events: none;
-}
-.pop-step {
-  position: absolute; left: 0; right: 0;
-  font-family: var(--serif); font-size: clamp(18px, 2.4vw, 28px);
-  color: var(--ink); opacity: 0;
-  transform: translateY(20px);
-}
-.pop-step.step-3 { font-size: clamp(48px, 8vw, 96px); font-weight: 700; color: var(--sun-deep); letter-spacing: -.02em; }
-.pop-step.step-3 em { font-style: italic; }
 
 /* ---------- PRODUCT ---------- */
 
@@ -561,5 +532,5 @@ h4 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  .hero-glow, .mk, .marquee-track { animation: none !important; }
+  .marquee-track, .hero-story__cue span, .hero-story__loading span { animation: none !important; }
 }
