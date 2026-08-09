@@ -598,7 +598,7 @@ h4 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom
       <canvas class="hero-story__canvas" aria-hidden="true"></canvas>
 
       <noscript>
-        <img src="https://raw.githubusercontent.com/lonkarabhishek/Abhishek-s-Day/claude/jsb-foods-makhana-site-s9gbgq/jsb-foods/public/sequence/makhana/frame-120.webp" alt="Roasted makhana" class="hero-story__fallback" />
+        <img src="https://cdn.jsdelivr.net/gh/lonkarabhishek/Abhishek-s-Day@claude/jsb-foods-makhana-site-s9gbgq/jsb-foods/public/sequence/makhana/frame-120.webp" alt="Roasted makhana" class="hero-story__fallback" />
       </noscript>
 
       <!-- Overlay text — each caption fades in around a scroll range -->
@@ -1058,7 +1058,7 @@ window.ImageSequence = ImageSequence;
   // once GSAP is confirmed available and priority frames are decoded.
   let sequence = null;
   const FRAME_COUNT = 120;
-  const FRAME_PATH = (i) => `https://raw.githubusercontent.com/lonkarabhishek/Abhishek-s-Day/claude/jsb-foods-makhana-site-s9gbgq/jsb-foods/public/sequence/makhana/frame-${String(i + 1).padStart(3, '0')}.webp`;
+  const FRAME_PATH = (i) => `https://cdn.jsdelivr.net/gh/lonkarabhishek/Abhishek-s-Day@claude/jsb-foods-makhana-site-s9gbgq/jsb-foods/public/sequence/makhana/frame-${String(i + 1).padStart(3, '0')}.webp`;
 
   function initSequence() {
     if (!canvas || !window.ImageSequence) return null;
