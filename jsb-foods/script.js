@@ -153,15 +153,33 @@
       scrollTrigger: { trigger: '.why-grid', start: 'top 80%' },
     });
 
-    /* -------- Nav background solid on scroll -------- */
-    ScrollTrigger.create({
-      start: 'top -60',
-      onUpdate: (self) => {
-        document
-          .querySelector('.site-nav')
-          .classList.toggle('is-scrolled', self.scroll() > 60);
-      },
-    });
+    /* -------- Nav palette follows hero canvas -------- */
+    // Nav stays transparent + light-typography while the hero canvas is
+    // in its dark phase; flips to solid cream once the canvas has
+    // transitioned to the JSB palette (~82% through the pinned section).
+    const nav = document.querySelector('.site-nav');
+    if (nav && storySection) {
+      ScrollTrigger.create({
+        trigger: storySection,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => nav.classList.toggle('is-scrolled', self.progress > 0.82),
+        onLeave: () => nav.classList.add('is-scrolled'),
+        onEnterBack: () => {
+          // returning into the hero — respect the current progress
+        },
+      });
+      // If we start already scrolled past the hero (deep link, refresh
+      // low), make sure the nav is in its scrolled state.
+      ScrollTrigger.create({
+        start: 'top -60',
+        onUpdate: (self) => {
+          if (self.scroll() > storySection.offsetHeight * 0.85) {
+            nav.classList.add('is-scrolled');
+          }
+        },
+      });
+    }
   } else {
     // GSAP failed → show DOM content unconditionally and paint last frame.
     document

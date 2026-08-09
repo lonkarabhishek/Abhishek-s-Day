@@ -63,17 +63,25 @@ h4 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   display: flex; justify-content: space-between; align-items: center;
   padding: 18px clamp(20px, 4vw, 48px);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background .3s ease, border-color .3s ease, color .3s ease;
+  color: var(--cream); /* light by default so it reads on the dark hero */
+}
+.site-nav.is-scrolled {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  background: rgba(251, 243, 223, 0.55);
-  border-bottom: 1px solid rgba(34,22,16,.06);
+  background: rgba(251, 243, 223, 0.72);
+  border-bottom-color: rgba(34,22,16,.06);
+  color: var(--ink);
 }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--serif); font-weight: 700; font-size: 22px; }
-.brand-word em { color: var(--sun-deep); }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--serif); font-weight: 700; font-size: 22px; color: inherit; }
+.brand-word em { color: var(--sun); }
+.site-nav.is-scrolled .brand-word em { color: var(--sun-deep); }
 .brand-mark { display: inline-flex; }
 
 .nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); font-size: 14px; font-weight: 500; }
-.nav-links a { position: relative; color: var(--ink); opacity: .8; transition: opacity .2s; }
+.nav-links a { position: relative; color: inherit; opacity: .85; transition: opacity .2s; }
 .nav-links a:hover { opacity: 1; }
 .nav-links a:not(.pill)::after {
   content:""; position:absolute; left:0; right:0; bottom:-6px;
@@ -82,11 +90,13 @@ h4 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom
 }
 .nav-links a:not(.pill):hover::after { transform: scaleX(1); }
 .pill {
-  background: var(--ink); color: var(--cream) !important;
+  background: var(--sun); color: var(--ink) !important;
   padding: 10px 18px; border-radius: 999px;
-  transition: background .2s, transform .2s;
+  transition: background .2s, transform .2s, color .2s;
 }
-.pill:hover { background: var(--sun); color: var(--ink) !important; transform: translateY(-1px); }
+.site-nav.is-scrolled .pill { background: var(--ink); color: var(--cream) !important; }
+.pill:hover { background: var(--sun-deep); color: var(--ink) !important; transform: translateY(-1px); }
+.site-nav.is-scrolled .pill:hover { background: var(--sun); color: var(--ink) !important; }
 
 @media (max-width: 720px) {
   .nav-links a:not(.pill) { display: none; }
