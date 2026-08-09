@@ -18,7 +18,13 @@ import math, os, random
 from PIL import Image, ImageDraw, ImageFilter
 
 SIZE = 640
-COUNT = 120
+COUNT = 120  # local dev: full 120 frames
+
+# Set FRAMES_LEAN=1 to render a subsampled 60-frame set for deployment.
+import os as _os
+if _os.environ.get("FRAMES_LEAN"):
+    COUNT = 60
+    SIZE = 560
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "public", "sequence", "makhana")
 os.makedirs(OUT_DIR, exist_ok=True)
 
